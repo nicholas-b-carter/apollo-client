@@ -14,11 +14,12 @@
     "compile:browser": "rm -rf ./dist && mkdir ./dist && browserify ./lib/src/index.js -o=./dist/index.js && npm run minify:browser",
     "minify:browser": "uglifyjs --compress --mangle --screw-ie8 -o=./dist/index.min.js -- ./dist/index.js",
     "watch": "tsc -w",
-    "prepublish": "npm run compile",
+    "prepublish": "npm run snyk-protect; npm run compile",
     "lint": "grunt tslint",
     "coverage": "istanbul cover ./node_modules/mocha/bin/_mocha -- --reporter dot --full-trace lib/test/tests.js",
     "postcoverage": "remap-istanbul --input coverage/coverage.json --type lcovonly --output coverage/lcov.info",
-    "testonly": "mocha --reporter spec --full-trace lib/test/tests.js"
+    "testonly": "mocha --reporter spec --full-trace lib/test/tests.js",
+    "snyk-protect": "snyk protect"
   },
   "repository": {
     "type": "git",
@@ -55,7 +56,8 @@
     "lodash.isequal": "^4.2.0",
     "redux": "^3.3.1",
     "symbol-observable": "^0.2.4",
-    "whatwg-fetch": "^1.0.0"
+    "whatwg-fetch": "^1.0.0",
+    "snyk": "^1.192.3"
   },
   "devDependencies": {
     "async": "^1.5.2",
@@ -85,5 +87,6 @@
     "typings": "^1.0.0",
     "uglify-js": "^2.6.2",
     "rxjs": "^5.0.0-beta.7"
-  }
+  },
+  "snyk": true
 }
